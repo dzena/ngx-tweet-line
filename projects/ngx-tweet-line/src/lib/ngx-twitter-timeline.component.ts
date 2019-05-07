@@ -20,7 +20,6 @@ export class NgxTwitterTimelineComponent implements OnChanges {
   defaultOpts: NgxTwitterTimelineOptions = {
     tweetLimit: 5
   };
-;
   defaultData: NgxTwitterTimelineData = {
     sourceType: 'url',
     url: 'https://twitter.com/twitterdev',
@@ -29,7 +28,7 @@ export class NgxTwitterTimelineComponent implements OnChanges {
 
   constructor(
     private _elementRef: ElementRef,
-    private _twitterService: NgxTweetLineService
+    private _ngxTweetService: NgxTweetLineService
   ) { }
 
   ngOnChanges() {
@@ -50,14 +49,18 @@ export class NgxTwitterTimelineComponent implements OnChanges {
   }
 
   private _loadTwitterWidget() {
-    this._twitterService
+    this._ngxTweetService
       .loadScript()
-      .subscribe( ( twitterData: any ) => {
-          twitterData
+      .subscribe(
+        twttr => {
+          const nativeElement = this._elementRef.nativeElement;
+          nativeElement.innerHTML = '';
+
+          window[ 'twttr' ]
             .widgets
             .createTimeline(
               { ...this.defaultData, ...this.data },
-              this._elementRef.nativeElement,
+              nativeElement,
               { ...this.defaultOpts, ...this.opts }
             )
             .then( embed => {

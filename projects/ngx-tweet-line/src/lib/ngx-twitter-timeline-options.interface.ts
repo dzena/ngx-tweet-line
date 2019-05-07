@@ -30,4 +30,6 @@ export default interface NgxTwitterTimelineOptions {
    * Values: polite, assertive, rude
    */
   ariaPolite?: string[];
+
+  linkColor?: string;
 }

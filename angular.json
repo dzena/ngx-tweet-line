@@ -133,6 +133,11 @@
           "options": {
             "tsConfig": "projects/ngx-tweet-line/tsconfig.lib.json",
             "project": "projects/ngx-tweet-line/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-tweet-line/ng-package.json"
+            }
           }
         },
         "test": {

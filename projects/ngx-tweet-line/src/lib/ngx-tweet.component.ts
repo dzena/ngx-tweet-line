@@ -2,7 +2,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
+  OnChanges,
   ViewEncapsulation
 } from '@angular/core';
 import { NgxTweetLineService } from './ngx-tweet-line.service';
@@ -14,7 +14,7 @@ import NgxTweetOptions from './ngx-tweet-options.interface';
   styles: [ '.twitter-tweet { transform: none !important; }' ],
   encapsulation: ViewEncapsulation.None
 } )
-export class NgxTweetComponent implements OnInit {
+export class NgxTweetComponent implements OnChanges {
   @Input() public tweetId: string;
   @Input() public tweetOptions: NgxTweetOptions;
 
@@ -24,17 +24,28 @@ export class NgxTweetComponent implements OnInit {
                private readonly _ngxTweetService: NgxTweetLineService ) {
   }
 
-  public ngOnInit(): void {
-    this._loadTwitterScript();
+  ngOnChanges(): void {
+    this._loadTwitterWidget();
   }
 
-  private _loadTwitterScript(): void {
+  private _loadTwitterWidget() {
     this._ngxTweetService
       .loadScript()
-      .subscribe( ( twitterData: any ) => {
-        this._updateTwitterScriptLoadingState();
-        twitterData.widgets.createTweet( this.tweetId, this._elementRef.nativeElement, { ...this.tweetOptions } );
-      } );
+      .subscribe(
+        twttr => {
+          const nativeElement = this._elementRef.nativeElement;
+          nativeElement.innerHTML = '';
+
+          this._updateTwitterScriptLoadingState();
+          window[ 'twttr' ]
+            .widgets
+            .createTweet( this.tweetId, nativeElement, { ...this.tweetOptions } )
+            .then( embed => {
+              // console.log(embed);
+            } )
+            .catch( error => console.error( error ) );
+        },
+        err => console.error( err ) );
   }
 
   private _updateTwitterScriptLoadingState(): void {

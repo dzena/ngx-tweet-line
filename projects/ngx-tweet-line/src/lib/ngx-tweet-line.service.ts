@@ -1,63 +1,50 @@
-import { Inject, Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class NgxTweetLineService {
-  private readonly TWITTER_OBJECT = 'twttr';
   private readonly TWITTER_SCRIPT_ID = 'twitter-wjs';
   private readonly TWITTER_WIDGET_URL = 'https://platform.twitter.com/widgets.js';
 
-  constructor( @Inject( DOCUMENT ) private readonly _document: any ) {
-  }
+  constructor() { }
 
-  public loadScript(): Observable<any> {
-    return Observable.create( ( observer: Observer<any> ) => {
-      this._startScriptLoad();
-      this._document
-        .defaultView[ this.TWITTER_OBJECT ]
-        .ready( this._onTwitterScriptLoadedFactory( observer ) );
+  loadScript(): Observable<any> {
+    return Observable.create( observer => {
+
+      this.startScriptLoad();
+
+      window[ 'twttr' ].ready( ( twttr ) => {
+        observer.next( twttr );
+        observer.complete();
+      } );
+
     } );
   }
 
-  private _startScriptLoad(): void {
-    const twitterData = this._document.defaultView[ this.TWITTER_OBJECT ] || {};
+  private startScriptLoad() {
+    window[ 'twttr' ] = (function( d, s, id, url ) {
+      let script,
+        firstScriptEl = d.getElementsByTagName( s )[ 0 ],
+        twitterScript = window[ 'twttr' ] || {};
+      if ( d.getElementById( id ) ) {
+        return twitterScript;
+      }
 
-    if ( this._twitterScriptAlreadyExists() ) {
-      this._document.defaultView[ this.TWITTER_OBJECT ] = twitterData;
-      return;
-    }
+      script = d.createElement( s );
+      script.id = id;
+      script.src = url;
+      firstScriptEl.parentNode.insertBefore( script, firstScriptEl );
 
-    this._appendTwitterScriptToDOM();
+      twitterScript._e = [];
 
-    twitterData._e = [];
+      twitterScript.ready = function( f ) {
+        twitterScript._e.push( f );
+      };
 
-    twitterData.ready = ( callback: Function ) => {
-      twitterData._e.push( callback );
-    };
-
-    this._document.defaultView[ this.TWITTER_OBJECT ] = twitterData;
+      return twitterScript;
+    }( document, 'script', this.TWITTER_SCRIPT_ID, this.TWITTER_WIDGET_URL ));
   }
 
-  private _twitterScriptAlreadyExists(): boolean {
-    const twitterScript = this._document.getElementById( this.TWITTER_SCRIPT_ID );
-    return (twitterScript !== null || typeof twitterScript !== 'object');
-  }
-
-  private _appendTwitterScriptToDOM(): void {
-    const firstJSScript = this._document.getElementsByTagName( 'script' )[ 0 ];
-    const js = this._document.createElement( 'script' );
-    js.id = this.TWITTER_SCRIPT_ID;
-    js.src = this.TWITTER_WIDGET_URL;
-    firstJSScript.parentNode.insertBefore( js, firstJSScript );
-  }
-
-  private _onTwitterScriptLoadedFactory( observer: Observer<any> ): Function {
-    return ( twitterData: any ) => {
-      observer.next( twitterData );
-      observer.complete();
-    };
-  }
 }

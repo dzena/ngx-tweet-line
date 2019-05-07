@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ngx-tweet-line';
+  color = '#000000';
+  theme = 'light';
+  theme1 = 'light';
 }
