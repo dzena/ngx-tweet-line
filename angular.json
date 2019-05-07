@@ -121,6 +121,41 @@
           }
         }
       }
+    },
+    "ngxTweetLine": {
+      "root": "projects/ngx-tweet-line",
+      "sourceRoot": "projects/ngx-tweet-line/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-tweet-line/tsconfig.lib.json",
+            "project": "projects/ngx-tweet-line/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-tweet-line/src/test.ts",
+            "tsConfig": "projects/ngx-tweet-line/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-tweet-line/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-tweet-line/tsconfig.lib.json",
+              "projects/ngx-tweet-line/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-tweet-line"
