@@ -14,10 +14,11 @@
                [tweetOptions]="{theme: theme1, linkColor: color}"></lib-ngx-tweet>
 
 <lib-ngx-twitter-timeline
-  [data]="{ sourceType: 'url', url: 'https://twitter.com/' + 'angular' }"
+  [data]="{ sourceType: 'url', url: 'https://twitter.com/' + 'juristr' }"
   [opts]="{
   tweetLimit: 1,
   linkColor: color,
+  showReplies: false,
   theme: theme
   }"
 ></lib-ngx-twitter-timeline>
