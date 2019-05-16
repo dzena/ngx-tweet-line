@@ -11,7 +11,7 @@ import NgxTweetOptions from './ngx-tweet-options.interface';
 @Component( {
   selector: 'lib-ngx-tweet',
   template: '<ng-content></ng-content>',
-  styles: [ '.twitter-tweet { transform: none !important; }' ],
+  styles: [ '.twitter-tweet { transform: none !important; margin-bottom: 0 !important;; margin-top: 0 !important; }' ],
   encapsulation: ViewEncapsulation.None
 } )
 export class NgxTweetComponent implements OnChanges {
