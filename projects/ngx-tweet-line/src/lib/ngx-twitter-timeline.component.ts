@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { NgxTweetLineService } from './ngx-tweet-line.service';
 import NgxTwitterTimelineData from './ngx-twitter-timeline-data.interface';
 import NgxTwitterTimelineOptions from './ngx-twitter-timeline-options.interface';
@@ -26,6 +26,8 @@ export class NgxTwitterTimelineComponent implements OnChanges {
     screenName: 'twitterdev'
   };
 
+  @Output() loading = new EventEmitter<boolean>();
+
   constructor(
     private _elementRef: ElementRef,
     private _ngxTweetService: NgxTweetLineService
@@ -44,6 +46,7 @@ export class NgxTwitterTimelineComponent implements OnChanges {
           break;
       }
 
+      this.loading.emit( true );
       this._loadTwitterWidget();
     }
   }
@@ -52,7 +55,7 @@ export class NgxTwitterTimelineComponent implements OnChanges {
     this._ngxTweetService
       .loadScript()
       .subscribe(
-        twttr => {
+        () => {
           const nativeElement = this._elementRef.nativeElement;
           nativeElement.innerHTML = '';
 
@@ -63,8 +66,8 @@ export class NgxTwitterTimelineComponent implements OnChanges {
               nativeElement,
               { ...this.defaultOpts, ...this.opts }
             )
-            .then( embed => {
-              // console.log(embed);
+            .then( () => {
+              this.loading.emit( false );
             } )
             .catch( error => console.error( error ) );
         },
