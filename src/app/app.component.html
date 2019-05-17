@@ -8,11 +8,16 @@
 </div>
 
 <lib-ngx-tweet [tweetId]="'1125617206220378113'"
-               [tweetOptions]="{theme: theme, linkColor: color}"></lib-ngx-tweet>
+               [tweetOptions]="{theme: theme, linkColor: color}"
+               (loading)="loadTweet($event)"></lib-ngx-tweet>
 
-<lib-ngx-tweet [tweetId]="'1125167434363572224'"
-               [tweetOptions]="{theme: theme1, linkColor: color}"></lib-ngx-tweet>
+<h1 *ngIf="isLoadingTweet">Loading Tweet...</h1>
 
+<!--<ngx-tweet tweetId="921670221710032896">Loading...</ngx-tweet>-->
+<!--<lib-ngx-tweet [tweetId]="'1125167434363572224'"-->
+<!--               [tweetOptions]="{theme: theme1, linkColor: color}"></lib-ngx-tweet>-->
+
+<h1 *ngIf="isLoadingTimeline">Loading Timeline...</h1>
 <lib-ngx-twitter-timeline
   [data]="{ sourceType: 'url', url: 'https://twitter.com/' + 'juristr' }"
   [opts]="{
@@ -21,14 +26,15 @@
   showReplies: false,
   theme: theme
   }"
+  (loading)="loadTimeline($event)"
 ></lib-ngx-twitter-timeline>
 
-<input [(ngModel)]="color"/>
+<!--<input [(ngModel)]="color"/>-->
 <select [(ngModel)]="theme">
   <option [value]="'light'">Light</option>
   <option [value]="'dark'">Dark</option>
 </select>
-<select [(ngModel)]="theme1">
-  <option [value]="'light'">Light</option>
-  <option [value]="'dark'">Dark</option>
-</select>
+<!--<select [(ngModel)]="theme1">-->
+<!--  <option [value]="'light'">Light</option>-->
+<!--  <option [value]="'dark'">Dark</option>-->
+<!--</select>-->
