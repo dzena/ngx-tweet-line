@@ -7,11 +7,18 @@
        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
 
-<lib-ngx-tweet [tweetId]="'1125617206220378113'"
-               [tweetOptions]="{theme: theme, linkColor: color}"
-               (loading)="loadTweet($event)"></lib-ngx-tweet>
+<h2>{{ error }}</h2>
+<!--<select [(ngModel)]="cards">-->
+<!--  <option [value]="'visible'">visible</option>-->
+<!--  <option [value]="'hidden'">hidden</option>-->
+<!--</select>-->
+<!--<lib-ngx-tweet [tweetId]="'792459518663860224'"-->
+<!--               [tweetOptions]="{theme: theme, linkColor: color, cards:cards}"-->
+<!--               (loading)="loadTweet($event)"-->
+<!--               (error)="onError()"-->
+<!--               *ngIf="!hidden"></lib-ngx-tweet>-->
 
-<h1 *ngIf="isLoadingTweet">Loading Tweet...</h1>
+<!--<h1 *ngIf="isLoadingTweet">Loading Tweet...</h1>-->
 
 <!--<ngx-tweet tweetId="921670221710032896">Loading...</ngx-tweet>-->
 <!--<lib-ngx-tweet [tweetId]="'1125167434363572224'"-->
@@ -19,7 +26,7 @@
 
 <h1 *ngIf="isLoadingTimeline">Loading Timeline...</h1>
 <lib-ngx-twitter-timeline
-  [data]="{ sourceType: 'url', url: 'https://twitter.com/' + 'juristr' }"
+  [data]="{ sourceType: 'url', url: 'https://twitter.com/' + profile }"
   [opts]="{
   tweetLimit: 1,
   linkColor: color,
@@ -27,14 +34,17 @@
   theme: theme
   }"
   (loading)="loadTimeline($event)"
+  (error)="onError()"
 ></lib-ngx-twitter-timeline>
 
 <!--<input [(ngModel)]="color"/>-->
-<select [(ngModel)]="theme">
-  <option [value]="'light'">Light</option>
-  <option [value]="'dark'">Dark</option>
-</select>
+<!--<select [(ngModel)]="theme">-->
+<!--  <option [value]="'light'">Light</option>-->
+<!--  <option [value]="'dark'">Dark</option>-->
+<!--</select>-->
 <!--<select [(ngModel)]="theme1">-->
 <!--  <option [value]="'light'">Light</option>-->
 <!--  <option [value]="'dark'">Dark</option>-->
 <!--</select>-->
+<button (click)="hide()">WITH ERROR</button>
+<button (click)="show()">NO ERROR</button>

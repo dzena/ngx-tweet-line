@@ -10,9 +10,14 @@ export class AppComponent {
   color = '#000000';
   theme = 'light';
   theme1 = 'light';
+  cards = 'hidden';
+
+  profile = 'LittleOtter1';
+  error = '';
 
   public isLoadingTweet;
   public isLoadingTimeline;
+  hidden = false;
 
   constructor( private cdRef: ChangeDetectorRef ) {}
 
@@ -24,5 +29,20 @@ export class AppComponent {
   loadTimeline( loading: boolean ) {
     this.isLoadingTimeline = loading;
     this.cdRef.detectChanges();
+  }
+
+  hide() {
+    // this.hidden = !this.hidden;
+    this.profile = 'LittleOtter1';
+  }
+
+  show() {
+    this.profile = 'juristr';
+    this.error = '';
+    // this.hidden = !this.hidden;
+  }
+
+  onError() {
+    this.error = 'Can\'t load tweet';
   }
 }

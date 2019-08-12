@@ -27,6 +27,7 @@ export class NgxTwitterTimelineComponent implements OnChanges {
   };
 
   @Output() loading = new EventEmitter<boolean>();
+  @Output() error = new EventEmitter<void>();
 
   constructor(
     private _elementRef: ElementRef,
@@ -66,7 +67,10 @@ export class NgxTwitterTimelineComponent implements OnChanges {
               nativeElement,
               { ...this.defaultOpts, ...this.opts }
             )
-            .then( () => {
+            .then( ( r ) => {
+              if ( !r ) {
+                this.error.next();
+              }
               this.loading.emit( false );
             } )
             .catch( error => console.error( error ) );
