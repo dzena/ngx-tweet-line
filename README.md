@@ -1,6 +1,6 @@
 # NgxTweetLine
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.9.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.1.
 
 ## Development server
 
@@ -12,7 +12,12 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build ngxTweetLine --prod` to build the project. This command will build this project to be used as an angular library. The build artifacts will be stored in the `dist/` directory.
+
+## Publish to INR npm
+
+Go to the `dist/ngx-tweet-line` and run `npm publish`. Make sure that you are logged in on NPM.
+
 
 ## Running unit tests
 
