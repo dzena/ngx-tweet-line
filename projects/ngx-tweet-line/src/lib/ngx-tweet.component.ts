@@ -23,6 +23,7 @@ export class NgxTweetComponent implements OnChanges {
   @Input() public tweetOptions: NgxTweetOptions;
 
   @Output() loading = new EventEmitter<boolean>();
+  @Output() success = new EventEmitter<void>();
   @Output() error = new EventEmitter<void>();
 
   constructor( private readonly _elementRef: ElementRef,
@@ -48,6 +49,8 @@ export class NgxTweetComponent implements OnChanges {
             .then( ( r ) => {
               if ( !r ) {
                 this.error.next();
+              } else {
+                this.success.next();
               }
               this.loading.emit( false );
             } )

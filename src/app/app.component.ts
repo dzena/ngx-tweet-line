@@ -13,7 +13,7 @@ export class AppComponent {
   cards = 'hidden';
 
   profile = 'LittleOtter1';
-  error = '';
+  error = false;
 
   public isLoadingTweet;
   public isLoadingTimeline;
@@ -38,11 +38,14 @@ export class AppComponent {
 
   show() {
     this.profile = 'juristr';
-    this.error = '';
     // this.hidden = !this.hidden;
   }
 
+  onSuccess() {
+    this.error = false;
+  }
+
   onError() {
-    this.error = 'Can\'t load tweet';
+    this.error = true;
   }
 }
