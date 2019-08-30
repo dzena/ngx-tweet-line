@@ -25,18 +25,17 @@
 <!--               [tweetOptions]="{theme: theme1, linkColor: color}"></lib-ngx-tweet>-->
 
 <h1 *ngIf="isLoadingTimeline">Loading Timeline...</h1>
-<lib-ngx-twitter-timeline
-  [data]="{ sourceType: 'url', url: 'https://twitter.com/' + profile }"
-  [opts]="{
-  tweetLimit: 1,
-  linkColor: color,
-  showReplies: false,
-  theme: theme
+<lib-ngx-follow-btn
+  [username]="'twitterdev'"
+  [options]="{
+    showScreenName: false,
+    showCount: true,
+    size: 'large'
   }"
-  (loading)="loadTimeline($event)"
+  (loading)="loadFollowBtn($event)"
   (error)="onError()"
   (success)="onSuccess()"
-></lib-ngx-twitter-timeline>
+></lib-ngx-follow-btn>
 
 <!--<input [(ngModel)]="color"/>-->
 <!--<select [(ngModel)]="theme">-->

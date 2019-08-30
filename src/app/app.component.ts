@@ -17,6 +17,7 @@ export class AppComponent {
 
   public isLoadingTweet;
   public isLoadingTimeline;
+  public isLoadingFollowBtn;
   hidden = false;
 
   constructor( private cdRef: ChangeDetectorRef ) {}
@@ -28,6 +29,11 @@ export class AppComponent {
 
   loadTimeline( loading: boolean ) {
     this.isLoadingTimeline = loading;
+    this.cdRef.detectChanges();
+  }
+
+  loadFollowBtn( loading: boolean ) {
+    this.isLoadingFollowBtn = loading;
     this.cdRef.detectChanges();
   }
 
