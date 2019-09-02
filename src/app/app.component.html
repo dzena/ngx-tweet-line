@@ -25,7 +25,7 @@
 <!--               [tweetOptions]="{theme: theme1, linkColor: color}"></lib-ngx-tweet>-->
 
 <h1 *ngIf="isLoadingTimeline">Loading Timeline...</h1>
-<lib-ngx-follow-btn
+<!-- <lib-ngx-follow-btn
   [username]="'twitterdev'"
   [options]="{
     showScreenName: false,
@@ -35,7 +35,20 @@
   (loading)="loadFollowBtn($event)"
   (error)="onError()"
   (success)="onSuccess()"
-></lib-ngx-follow-btn>
+></lib-ngx-follow-btn> -->
+
+<lib-ngx-tweet-btn
+  [url]="'https://twitter.com/intent/tweet'"
+  [options]="{
+    text: 'custom share text',
+    hashtags: 'example,demo',
+    via: 'twitterdev',
+    size: 'large'
+  }"
+  (loading)="loadTweetBtn($event)"
+  (error)="onError()"
+  (success)="onSuccess()">
+</lib-ngx-tweet-btn>
 
 <!--<input [(ngModel)]="color"/>-->
 <!--<select [(ngModel)]="theme">-->

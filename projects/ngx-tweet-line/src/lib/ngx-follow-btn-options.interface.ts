@@ -14,5 +14,14 @@ export default interface NgxFollowBtnOptions {
    */
   size?: string;
 
+  /**
+   * A supported Twitter language code.
+   */
+  lang?: string;
 
+  /**
+   * When set to true, the button and its embedded page on your site
+   * are not used for purposes that include personalized suggestions and personalized ads.
+   */
+  dnt?: boolean;
 }
