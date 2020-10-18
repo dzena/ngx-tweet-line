@@ -6,58 +6,52 @@ import { ChangeDetectorRef, Component } from '@angular/core';
   styleUrls: [ './app.component.css' ]
 } )
 export class AppComponent {
-  title = 'ngx-tweet-line';
-  color = '#000000';
-  theme = 'light';
-  theme1 = 'light';
-  cards = 'hidden';
+  public title = 'ngx-tweet-line';
 
-  profile = 'LittleOtter1';
-  error = false;
-
+  // tweet
+  public tweetTheme = 'light';
+  public cards = 'show';
   public isLoadingTweet;
+
+  // timeline
+  public timelineTheme = 'dark';
+  public timelineLimit = 3;
+  public profile = 'https://twitter.com/TwitterDev';
+  public timelineError = false;
   public isLoadingTimeline;
+
+  // follow btn
+  public showScreenName = true;
+  public showCount = true;
   public isLoadingFollowBtn;
+
+  // tweet btn
+  public tweetBtnSize = 'large';
   public isLoadingTweetBtn;
-  hidden = false;
 
   constructor( private cdRef: ChangeDetectorRef ) {}
 
-  loadTweet( loading: boolean ) {
+  public onLoadingTweetChanged( loading: boolean ): void {
     this.isLoadingTweet = loading;
     this.cdRef.detectChanges();
   }
 
-  loadTimeline( loading: boolean ) {
+  public onLoadingTimelineChanged( loading: boolean ): void {
     this.isLoadingTimeline = loading;
     this.cdRef.detectChanges();
   }
 
-  loadFollowBtn( loading: boolean ) {
+  public onTimelineError(): void {
+    this.timelineError = true;
+  }
+
+  public onLoadingFollowBtn( loading: boolean ): void {
     this.isLoadingFollowBtn = loading;
     this.cdRef.detectChanges();
   }
 
-  loadTweetBtn( loading: boolean ) {
+  public loadTweetBtn( loading: boolean ): void {
     this.isLoadingTweetBtn = loading;
     this.cdRef.detectChanges();
-  }
-
-  hide() {
-    // this.hidden = !this.hidden;
-    this.profile = 'LittleOtter1';
-  }
-
-  show() {
-    this.profile = 'juristr';
-    // this.hidden = !this.hidden;
-  }
-
-  onSuccess() {
-    this.error = false;
-  }
-
-  onError() {
-    this.error = true;
   }
 }

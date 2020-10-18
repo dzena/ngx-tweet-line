@@ -1,0 +1,18 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}

@@ -3,61 +3,139 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo"
-       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
 
-<h2 *ngIf="error">Can't load tweet</h2>
-<!--<select [(ngModel)]="cards">-->
-<!--  <option [value]="'visible'">visible</option>-->
-<!--  <option [value]="'hidden'">hidden</option>-->
-<!--</select>-->
-<!--<lib-ngx-tweet [tweetId]="'792459518663860224'"-->
-<!--               [tweetOptions]="{theme: theme, linkColor: color, cards:cards}"-->
-<!--               (loading)="loadTweet($event)"-->
-<!--               (error)="onError()"-->
-<!--               *ngIf="!hidden"></lib-ngx-tweet>-->
+<section class="content">
+  <div class="column">
+    <h3>Embed Tweet</h3>
+    <div class="column-head">
+      <div>
+        <span>Expand links </span>
+        <select [(ngModel)]="cards">
+          <option [value]="'show'">Yes</option>
+          <option [value]="'hidden'">No</option>
+        </select>
+      </div>
 
-<!--<h1 *ngIf="isLoadingTweet">Loading Tweet...</h1>-->
+      <div>
+        <span>Theme </span>
+        <select [(ngModel)]="tweetTheme">
+          <option [value]="'light'">Light</option>
+          <option [value]="'dark'">Dark</option>
+        </select>
+      </div>
+    </div>
 
-<!--<ngx-tweet tweetId="921670221710032896">Loading...</ngx-tweet>-->
-<!--<lib-ngx-tweet [tweetId]="'1125167434363572224'"-->
-<!--               [tweetOptions]="{theme: theme1, linkColor: color}"></lib-ngx-tweet>-->
+    <h2 *ngIf="isLoadingTweet">Loading Tweet...</h2>
+    <lib-ngx-tweet [tweetId]="'1309205362776498176'"
+                   [tweetOptions]="{theme: tweetTheme, cards: cards, width: 300}"
+                   (loading)="onLoadingTweetChanged($event)"
+    ></lib-ngx-tweet>
+  </div>
 
-<h1 *ngIf="isLoadingTimeline">Loading Timeline...</h1>
-<!-- <lib-ngx-follow-btn
-  [username]="'twitterdev'"
-  [options]="{
-    showScreenName: false,
-    showCount: true,
-    size: 'large'
-  }"
-  (loading)="loadFollowBtn($event)"
-  (error)="onError()"
-  (success)="onSuccess()"
-></lib-ngx-follow-btn> -->
+  <div class="column">
+    <h3>Embed Timeline</h3>
+    <div class="column-head">
+      <div>
+        <span>Tweet limit </span>
+        <select [(ngModel)]="timelineLimit">
+          <option [value]="3">3</option>
+          <option [value]="5">5</option>
+          <option [value]="10">10</option>
+          <option [value]="15">15</option>
+        </select>
+      </div>
 
-<lib-ngx-tweet-btn
-  [url]="'https://twitter.com/intent/tweet'"
-  [options]="{
-    text: 'custom share text',
-    hashtags: 'example,demo',
-    via: 'twitterdev',
-    size: 'large'
-  }"
-  (loading)="loadTweetBtn($event)"
-  (error)="onError()"
-  (success)="onSuccess()">
-</lib-ngx-tweet-btn>
+      <div>
+        <span>Theme </span>
+        <select [(ngModel)]="timelineTheme">
+          <option [value]="'light'">Light</option>
+          <option [value]="'dark'">Dark</option>
+        </select>
+      </div>
 
-<!--<input [(ngModel)]="color"/>-->
-<!--<select [(ngModel)]="theme">-->
-<!--  <option [value]="'light'">Light</option>-->
-<!--  <option [value]="'dark'">Dark</option>-->
-<!--</select>-->
-<!--<select [(ngModel)]="theme1">-->
-<!--  <option [value]="'light'">Light</option>-->
-<!--  <option [value]="'dark'">Dark</option>-->
-<!--</select>-->
-<button (click)="hide()">WITH ERROR</button>
-<button (click)="show()">NO ERROR</button>
+      <div>
+        <span>Load private profile </span>
+        <select [(ngModel)]="profile">
+          <option [value]="'https://twitter.com/LittleOtter1'">Yes</option>
+          <option [value]="'https://twitter.com/TwitterDev'">No</option>
+        </select>
+      </div>
+    </div>
+
+    <h2 *ngIf="timelineError">Can't load timeline</h2>
+    <h2 *ngIf="isLoadingTimeline">Loading Timeline...</h2>
+    <lib-ngx-twitter-timeline
+      [data]="{
+      sourceType: 'profile',
+      url: profile
+      }"
+      [opts]="{
+      theme: timelineTheme,
+      tweetLimit: timelineLimit,
+      height: 300
+      }"
+      (loading)="onLoadingTimelineChanged($event)"
+      (error)="onTimelineError()"
+    >
+    </lib-ngx-twitter-timeline>
+  </div>
+
+  <div class="column">
+    <h3>Embed Follow Btn</h3>
+    <div class="column-head">
+      <div>
+        <span>Show screen name </span>
+        <select [(ngModel)]="showScreenName">
+          <option [value]="true">Yes</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
+
+      <div>
+        <span>Show count </span>
+        <select [(ngModel)]="showCount">
+          <option [value]="true">Yes</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
+    </div>
+
+    <h2 *ngIf="isLoadingFollowBtn">Loading Follow Btn...</h2>
+    <lib-ngx-follow-btn
+      [username]="'twitterdev'"
+      [options]="{
+        showScreenName: showScreenName,
+        showCount: showCount,
+        size: 'large'
+      }"
+      (loading)="onLoadingFollowBtn($event)"
+    ></lib-ngx-follow-btn>
+  </div>
+
+  <div class="column">
+    <h3>Embed Follow Btn</h3>
+    <div class="column-head">
+      <div>
+        <span>Button size </span>
+        <select [(ngModel)]="tweetBtnSize">
+          <option [value]="'large'">Large</option>
+          <option [value]="'small'">Small</option>
+        </select>
+      </div>
+    </div>
+
+    <h2 *ngIf="isLoadingTweetBtn">Loading Tweet Btn...</h2>
+    <lib-ngx-tweet-btn
+      [url]="'https://twitter.com/intent/tweet'"
+      [options]="{
+        text: 'custom share text',
+        hashtags: ['example','demo'],
+        via: 'twitterdev',
+        size: tweetBtnSize
+      }"
+      (loading)="loadTweetBtn($event)">
+    </lib-ngx-tweet-btn>
+  </div>
+</section>
+
