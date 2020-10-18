@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { NgxTweetLineService } from '../ngx-tweet-line.service';
 import NgxTweetOptions from '../models/ngx-tweet-options.interface';
+import { take } from 'rxjs/operators';
 
 @Component( {
   selector: 'lib-ngx-tweet',
@@ -38,23 +39,25 @@ export class NgxTweetComponent implements OnChanges {
   private _loadTwitterWidget() {
     this._ngxTweetService
       .loadScript()
+      .pipe( take( 1 ) )
       .subscribe(
-        () => {
+        ( twttr: any ) => {
           const nativeElement = this._elementRef.nativeElement;
           nativeElement.innerHTML = '';
 
-          window[ 'twttr' ]
+          twttr
             .widgets
             .createTweet( this.tweetId, nativeElement, { ...this.tweetOptions } )
             .then( ( r ) => {
+              // looks like the twitter api doesn't return exceptions
               if ( !r ) {
                 this.error.next();
               } else {
                 this.success.next();
               }
-              this.loading.emit( false );
             } )
-            .catch( error => console.error( error ) );
+            .catch( error => console.error( error ) )
+            .finally( () => this.loading.emit( false ) );
         },
         err => console.error( err ) );
   }

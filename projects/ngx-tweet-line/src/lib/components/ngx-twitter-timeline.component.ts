@@ -1,11 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { NgxTweetLineService } from '../ngx-tweet-line.service';
 import NgxTwitterTimelineData from '../models/ngx-twitter-timeline-data.interface';
 import NgxTwitterTimelineOptions from '../models/ngx-twitter-timeline-options.interface';
+import { take } from 'rxjs/operators';
 
 @Component( {
   selector: 'lib-ngx-twitter-timeline',
-  template: ``
+  template: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class NgxTwitterTimelineComponent implements OnChanges {
   /**
@@ -56,12 +58,13 @@ export class NgxTwitterTimelineComponent implements OnChanges {
   private _loadTwitterWidget() {
     this._ngxTweetService
       .loadScript()
+      .pipe( take( 1 ) )
       .subscribe(
-        () => {
+        ( twttr: any ) => {
           const nativeElement = this._elementRef.nativeElement;
           nativeElement.innerHTML = '';
 
-          window[ 'twttr' ]
+          twttr
             .widgets
             .createTimeline(
               { ...this.defaultData, ...this.data },
@@ -69,14 +72,15 @@ export class NgxTwitterTimelineComponent implements OnChanges {
               { ...this.defaultOpts, ...this.opts }
             )
             .then( ( r ) => {
+              // looks like the twitter api doesn't return exceptions
               if ( !r ) {
                 this.error.next();
               } else {
                 this.success.next();
               }
-              this.loading.emit( false );
             } )
-            .catch( error => console.error( error ) );
+            .catch( error => console.error( error ) )
+            .finally( () => this.loading.emit( false ) );
         },
         err => console.error( err ) );
   }

@@ -7,7 +7,6 @@ export default interface NgxTweetOptions {
    * "show" or "none"
    */
   conversation?: string;
-  linkColor?: string;
   /**
    * "dark" or "light"
    */

@@ -32,11 +32,6 @@ export default interface NgxTwitterTimelineOptions {
   ariaPolite?: string[];
 
   /**
-   * Adjust the color of links, including hashtags and @mentions, inside each Tweet
-   */
-  linkColor?: string;
-
-  /**
    * Show Tweets in response to another Tweet or account
    */
   showReplies?: boolean;
