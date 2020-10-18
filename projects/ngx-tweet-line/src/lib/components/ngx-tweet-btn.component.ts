@@ -8,19 +8,19 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { NgxTweetLineService } from './ngx-tweet-line.service';
-import NgxFollowBtnOptions from './ngx-follow-btn-options.interface';
+import { NgxTweetLineService } from '../ngx-tweet-line.service';
+import NgxTweetBtnOptions from '../models/ngx-tweet-btn-options.interface';
 
 @Component( {
-  selector: 'lib-ngx-follow-btn',
+  selector: 'lib-ngx-tweet-btn',
   template: '',
-  styles: [ '.twitter-follow-btn { transform: none !important; margin-bottom: 0 !important;; margin-top: 0 !important; }' ],
+  styles: [ '.twitter-tweet-btn { transform: none !important; margin-bottom: 0 !important;; margin-top: 0 !important; }' ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
-export class NgxFollowBtnComponent implements OnChanges {
-  @Input() public username: string;
-  @Input() public options: NgxFollowBtnOptions;
+export class NgxTweetBtnComponent implements OnChanges {
+  @Input() public url: string;
+  @Input() public options: NgxTweetBtnOptions;
 
   @Output() loading = new EventEmitter<boolean>();
   @Output() success = new EventEmitter<void>();
@@ -45,7 +45,7 @@ export class NgxFollowBtnComponent implements OnChanges {
 
           window[ 'twttr' ]
             .widgets
-            .createFollowButton( this.username, nativeElement, { ...this.options } )
+            .createShareButton( this.url, nativeElement, { ...this.options } )
             .then( ( r ) => {
               if ( !r ) {
                 this.error.next();

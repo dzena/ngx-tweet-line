@@ -8,8 +8,8 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { NgxTweetLineService } from './ngx-tweet-line.service';
-import NgxTweetOptions from './ngx-tweet-options.interface';
+import { NgxTweetLineService } from '../ngx-tweet-line.service';
+import NgxTweetOptions from '../models/ngx-tweet-options.interface';
 
 @Component( {
   selector: 'lib-ngx-tweet',

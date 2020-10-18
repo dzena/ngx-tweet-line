@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { NgxTweetLineService } from './ngx-tweet-line.service';
-import NgxTwitterTimelineData from './ngx-twitter-timeline-data.interface';
-import NgxTwitterTimelineOptions from './ngx-twitter-timeline-options.interface';
+import { NgxTweetLineService } from '../ngx-tweet-line.service';
+import NgxTwitterTimelineData from '../models/ngx-twitter-timeline-data.interface';
+import NgxTwitterTimelineOptions from '../models/ngx-twitter-timeline-options.interface';
 
 @Component( {
   selector: 'lib-ngx-twitter-timeline',
