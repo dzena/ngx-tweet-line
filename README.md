@@ -1,5 +1,8 @@
 # NgxTweetLine
 
+## Description
+Angular components that wrap Twitter API and allow users to embed Twitter widgets such as Tweets, Twitter Timelines, Twitter Follow Buttons and Twitter Tweet buttons.
+
 
 ## Run demo app locally
 Build the library `npm run build:lib` and then serve it `npm run start`.
