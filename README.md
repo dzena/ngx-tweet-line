@@ -1,10 +1,12 @@
 # NgxTweetLine
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.1.
+
+## Run demo app locally
+Build the library `npm run build:lib` and then serve it `npm run start`.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -12,7 +14,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build ngxTweetLine --prod` to build the project. This command will build this project to be used as an angular library. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build:lib` to build the project. This command will build this project to be used as an angular library. The build artifacts will be stored in the `dist/` directory.
 
 ## Publish to INR npm
 
