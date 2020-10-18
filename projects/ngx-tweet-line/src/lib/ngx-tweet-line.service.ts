@@ -14,8 +14,11 @@ export class NgxTweetLineService {
   private readonly TWITTER_OBJECT = 'twttr';
   private readonly TWITTER_SCRIPT_ID = 'twitter-wjs';
   private readonly TWITTER_WIDGET_URL = 'https://platform.twitter.com/widgets.js';
+  private readonly _document: Document;
 
-  constructor( @Inject( DOCUMENT ) private readonly _document: Document ) {}
+  constructor( @Inject( DOCUMENT ) document: any ) {
+    this._document = document as Document; // workaround https://github.com/angular/angular/issues/20351#issuecomment-446025223
+  }
 
   loadScript(): Observable<any> {
     return new Observable( ( observer: Observer<any> ) => {
